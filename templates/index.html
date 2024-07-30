@@ -1,0 +1,36 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Frame Capture</title>
+</head>
+<body>
+    <h1>Start Video Frame Capture</h1>
+    <form id="captureForm">
+        <label for="video_url">Video URL:</label>
+        <input type="text" id="video_url" name="video_url" required>
+        <button type="submit">Start Capture</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('captureForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            fetch('/start_capture', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').textContent = data.status;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
