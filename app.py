@@ -28,7 +28,7 @@ class FrameCapturer:
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
 
-    def capture_frames(self, interval=10):
+    def capture_frames(self, interval=5):
         while True:
             ret, frame = self.capture.read()  # 비디오에서 프레임 읽기
             if not ret:
