@@ -70,7 +70,7 @@ class GptAPI:
     def __init__(self):
         self.client = OpenAI(api_key="")  # OpenAI 클라이언트 초기화 # Api 키 넣기.
         self.model = "gpt-4o"  # 사용할 모델 지정
-        self.prompt = "해당 이미지를 시각장애인의 시야라고 가정할게. 해당 이미지에서 전봇대나 자전거, 사람 등 시각장애인에게 위협이 될 요소를 기억하고 거리를 확인해줘. 그리고 5미터 이내의 요소들만 '우측 3미터에 전봇대가 존재, 전방 좌측 5미터에 쓰레기통 존재.' 와 같은 형식으로 한 문장으로 말해줘."
+        self.prompt = "해당 이미지를 시각장애인의 시야라고 가정할게. 해당 이미지에서 전봇대나 자전거, 사람 등 시각장애인에게 위협이 될 요소를 기억하고 거리를 확인해줘. 그리고 5미터 이내의 요소들만 '우측 3미터에 전봇대가 존재, 전방 좌측 5미터에 쓰레기통 존재.' 와 같은 형식으로 한 문장으로 말해줘. 그리고 시각장애인에게 위협이 될만한 것이 없으면 \'없음\'이라고 말해줘. "
 
     def analyze_image(self, encoded_image):
         # 이미지 분석을 위한 메시지 생성
@@ -107,7 +107,6 @@ def start_capture():
     frame_capturer = FrameCapturer(video_url)
     frame_capturer.capture_frames()
     return jsonify({"status": "Capture started"})
-
 
 if __name__ == "__main__":
     app.run(debug=True)
