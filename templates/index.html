@@ -5,30 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Frame Capture</title>
+    <!-- HTML 문서의 메타데이터와 제목을 설정합니다. -->
 </head>
 <body>
     <h1>Start Video Frame Capture</h1>
+    <!-- 페이지의 제목을 표시합니다. -->
+    
+    <!-- 비디오 캡처를 시작하기 위한 폼을 정의합니다. -->
     <form id="captureForm">
+        <!-- 비디오 URL 입력 필드를 정의합니다. -->
         <label for="video_url">Video URL:</label>
         <input type="text" id="video_url" name="video_url" required>
+        <!-- 비디오 캡처 시작 버튼을 정의합니다. -->
         <button type="submit">Start Capture</button>
     </form>
+
+    <!-- 결과와 오류 메시지를 표시할 영역을 정의합니다. -->
     <div id="result"></div>
+    <div id="error"></div>
 
     <script>
+        // 폼 제출 이벤트 리스너를 추가합니다.
         document.getElementById('captureForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
+            e.preventDefault(); // 기본 폼 제출 동작을 막습니다.
+            var formData = new FormData(this); // 폼 데이터를 FormData 객체로 가져옵니다.
+            
+            // 서버에 비디오 URL을 POST 요청으로 보냅니다.
             fetch('/start_capture', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
+            .then(response => response.json()) // 응답을 JSON으로 파싱합니다.
             .then(data => {
-                document.getElementById('result').textContent = data.status;
+                if (data.status === "Error") {
+                    // 오류가 발생하면 오류 메시지를 표시합니다.
+                    document.getElementById('error').textContent = data.message;
+                    document.getElementById('result').textContent = "";
+                } else {
+                    // 캡처가 시작되면 결과를 표시합니다.
+                    document.getElementById('error').textContent = "";
+                    document.getElementById('result').textContent = data.results.join('\n');
+                }
             })
             .catch(error => {
+                // 요청이 실패하면 콘솔에 오류를 기록하고 사용자에게 오류를 알립니다.
                 console.error('Error:', error);
+                document.getElementById('error').textContent = 'An error occurred.';
             });
         });
     </script>
