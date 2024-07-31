@@ -104,9 +104,12 @@ def index():
 @app.route('/start_capture', methods=['POST'])
 def start_capture():
     video_url = request.form['video_url']
-    frame_capturer = FrameCapturer(video_url)
-    frame_capturer.capture_frames()
-    return jsonify({"status": "Capture started"})
+    try:
+        frame_capturer = FrameCapturer(video_url)
+        results = frame_capturer.capture_frames()
+        return jsonify({"status": "Capture started", "results": results})
+    except Exception as e:
+        return jsonify({"status": "Error", "message": str(e)}), 400
 
 if __name__ == "__main__":
     app.run(debug=True)
