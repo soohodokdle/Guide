@@ -1,0 +1,62 @@
+<MyLayout>:
+    orientation: 'vertical'
+    padding: dp(10)
+    spacing: dp(10)
+    
+    Image:
+        source: 'C:/Users/kaebi/OneDrive/바탕 화면/새싹톤/aiguide/images/background.jpg'
+        allow_stretch: True
+        size_hint_y: .45
+        keep_ratio: False
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(10)
+        spacing: dp(10)
+        
+        MDLabel:
+            text: 'Welcome to AI Guide'
+            halign: 'center'
+            size_hint_y: None
+            height: dp(50)
+            pos_hint: {"center_x": .5}
+            font_style: 'H5'
+
+        MDTextField:
+            id: url_input
+            hint_text: 'Enter Video URL'
+            font_size: '20sp'
+            size_hint_y: None
+            height: dp(50)
+
+        # MDIconButton:
+        #     id: toggle_button
+        #     icon: 'play-circle'
+        #     icon_size: '128sp'
+        #     user_font_size: '32sp' #icon_size
+        #     size_hint: .8, .15
+        #     size: dp(50), dp(50)
+        #     md_bg_color: app.theme_cls.primary_color
+        #     pos_hint: {"center_x": .5, "center_y": 1}
+        #     on_press: app.toggle_capture()
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(10)
+            spacing: dp(10)
+        
+        MDIconButton:
+            id: toggle_button
+            icon: 'play-circle'
+            icon_size: '128sp'
+            icon_color:[0.1,0.1,0.1, 1]
+            md_bg_color: [1, 1, 1, 1]  # 초록색 설정 (RGBA)
+            user_font_size: '100sp'  # 아이콘 크기 설정
+            size_hint: None, None
+            size: dp(80), dp(80)
+            pos_hint: {"center_x": .5, "center_y": .5}
+            on_press: app.toggle_capture()
+        
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(10)
+            spacing: dp(10)
